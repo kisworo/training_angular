@@ -1,0 +1,111 @@
+<div class="container">
+    <h1>Angular 18 Control Flow Demo</h1>
+
+    <!-- 1. @if Section -->
+    <section class="demo-section">
+        <h2>1. &#64;if - Conditional Rendering</h2>
+
+        <div class="controls">
+            <button (click)="toggleLogin()">
+                {{ isLoggedIn ? 'Logout' : 'Login' }}
+            </button>
+
+            <div class="role-buttons">
+                <button (click)="setRole('admin')" [class.active]="userRole === 'admin'">Admin</button>
+                <button (click)="setRole('editor')" [class.active]="userRole === 'editor'">Editor</button>
+                <button (click)="setRole('guest')" [class.active]="userRole === 'guest'">Guest</button>
+            </div>
+        </div>
+
+        <div class="output-box">
+            <p>Current Role: <strong>{{ userRole }}</strong></p>
+
+            @if (isLoggedIn) {
+            <div class="alert success">
+                <p>Welcome back! You are logged in.</p>
+            </div>
+
+            @if (userRole === 'admin') {
+            <div class="panel admin-panel">
+                <h3>🛡️ Admin Panel</h3>
+                <p>Full access to all settings.</p>
+            </div>
+            } @else if (userRole === 'editor') {
+            <div class="panel editor-panel">
+                <h3>✏️ Editor Panel</h3>
+                <p>Can edit content.</p>
+            </div>
+            } @else {
+            <div class="panel user-panel">
+                <h3>👤 User Panel</h3>
+                <p>View only access.</p>
+            </div>
+            }
+
+            } @else {
+            <div class="alert warning">
+                <p>⚠️ Please login to continue.</p>
+            </div>
+            }
+        </div>
+    </section>
+
+    <!-- 2. @for Section -->
+    <section class="demo-section">
+        <h2>2. &#64;for - List Rendering</h2>
+
+        <div class="controls">
+            <button (click)="addUser()">➕ Add User</button>
+            <p>Total Users: {{ users.length }}</p>
+        </div>
+
+        <div class="user-grid">
+            @for (user of users; track user.id) {
+            <div class="user-card">
+                <div class="user-info">
+                    <h3>{{ user.name }}</h3>
+                    <span class="badge">{{ user.role }}</span>
+                </div>
+                <button class="delete-btn" (click)="removeUser(user.id)">🗑️</button>
+            </div>
+            } @empty {
+            <div class="empty-state">
+                <p>📭 No users found. Add some!</p>
+            </div>
+            }
+        </div>
+    </section>
+
+    <!-- 3. @switch Section -->
+    <section class="demo-section">
+        <h2>3. &#64;switch - Multiple Conditions</h2>
+
+        <div class="day-selector">
+            @for (day of days; track day) {
+            <button (click)="setDay(day)" [class.active]="selectedDay === day">
+                {{ day }}
+            </button>
+            }
+        </div>
+
+        <div class="output-box">
+            @switch (selectedDay) {
+            @case ('monday') {
+            <p class="day-msg">💼 Monday: Start of work week! Let's be productive.</p>
+            }
+            @case ('friday') {
+            <p class="day-msg">🎉 Friday: TGIF! Weekend is coming.</p>
+            }
+            @case ('saturday') {
+            <p class="day-msg">🌴 Saturday: Time to relax!</p>
+            }
+            @case ('sunday') {
+            <p class="day-msg">☀️ Sunday: Prepare for the week ahead.</p>
+            }
+            @default {
+            <p class="day-msg">📅 {{ selectedDay | titlecase }}: Regular work day.</p>
+            }
+            }
+        </div>
+    </section>
+</div>

@@ -1,9 +1,21 @@
 import { Routes } from '@angular/router';
-import { KomponenDua } from './komponen-dua/komponen-dua';
-import { KomponenSatu } from './komponen-satu/komponen-satu';
 
 
 export const routes: Routes = [
-    { path: 'komponen-satu', component: KomponenSatu },
-    { path: 'komponen-dua', component: KomponenDua }
+    {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
+    },
+    {
+        path: 'login',
+        // lazy load the Login component
+        loadComponent: () => import('./pages/login/login').then((m) => m.Login)
+    },
+    {
+        path: 'home',
+        // lazy load the Home component
+        loadComponent: () => import('./home/home').then((m) => m.Home)
+    }
+
 ];

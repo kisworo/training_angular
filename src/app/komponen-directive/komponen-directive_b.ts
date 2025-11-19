@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface User {
@@ -14,25 +14,24 @@ interface User {
     templateUrl: './komponen-directive.html',
     styleUrl: './komponen-directive.scss'
 })
-
 export class KomponenDirective {
+    // 1. @if state
     isLoggedIn = false;
-    userRole = 'guest';
+    userRole = 'guest'; // 'admin', 'editor', 'guest'
 
-    // for state
+    // 2. @for state
     users: User[] = [
         { id: 1, name: 'Budi', role: 'Admin' },
         { id: 2, name: 'Ani', role: 'User' },
         { id: 3, name: 'Citra', role: 'Editor' }
     ];
+    items: any[] = []; // For @empty demo
 
-    // switch state
+    // 3. @switch state
     selectedDay = 'monday';
     days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-    items: any[] = [];
-
-    // methods
+    // Methods
     toggleLogin() {
         this.isLoggedIn = !this.isLoggedIn;
     }
@@ -44,23 +43,19 @@ export class KomponenDirective {
     addUser() {
         const id = this.users.length + 1;
         const roles = ['Admin', 'User', 'Editor'];
-        const randomeRole = roles[Math.floor(Math.random() * roles.length)];
+        const randomRole = roles[Math.floor(Math.random() * roles.length)];
         this.users.push({
             id,
             name: `User ${id}`,
-            role: randomeRole
-        })
+            role: randomRole
+        });
     }
 
     removeUser(id: number) {
-        this.users = this.users.filter(user => user.id !== id);
+        this.users = this.users.filter(u => u.id !== id);
     }
 
     setDay(day: string) {
         this.selectedDay = day;
     }
-
-
-
-
 }

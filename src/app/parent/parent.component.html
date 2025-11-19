@@ -1,0 +1,69 @@
+<div class="parent-container">
+    <h1>🏪 Product Management (Parent Component)</h1>
+
+    <div class="parent-info">
+        <div class="stat-card">
+            <h3>Total Products</h3>
+            <p class="stat-value">{{products.length}}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Revenue</h3>
+            <p class="stat-value">Rp {{totalRevenue | number}}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Selected Product</h3>
+            <p class="stat-value">{{selectedProduct?.name || 'None'}}</p>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn-primary" (click)="addNewProduct()">
+            ➕ Add New Product
+        </button>
+    </div>
+
+    <div class="products-grid">
+        @for(product of products; track product.id) {
+        <!-- 
+                Passing data to child component via @Input
+                Receiving events from child via @Output
+            -->
+        <app-child [product]="product" [isSelected]="selectedProduct?.id === product.id"
+            (productSelected)="onProductSelected($event)" (quantityChanged)="onQuantityChanged($event)"
+            (productDeleted)="onProductDeleted($event)">
+        </app-child>
+        } @empty {
+        <div class="empty-state">
+            <p>📦 No products available</p>
+        </div>
+        }
+    </div>
+
+    @if(selectedProduct) {
+    <div class="selected-details">
+        <h3>📋 Selected Product Details</h3>
+        <table>
+            <tr>
+                <td><strong>ID:</strong></td>
+                <td>{{selectedProduct.id}}</td>
+            </tr>
+            <tr>
+                <td><strong>Name:</strong></td>
+                <td>{{selectedProduct.name}}</td>
+            </tr>
+            <tr>
+                <td><strong>Price:</strong></td>
+                <td>Rp {{selectedProduct.price | number}}</td>
+            </tr>
+            <tr>
+                <td><strong>Quantity:</strong></td>
+                <td>{{selectedProduct.quantity}}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Value:</strong></td>
+                <td>Rp {{selectedProduct.price * selectedProduct.quantity | number}}</td>
+            </tr>
+        </table>
+    </div>
+    }
+</div>

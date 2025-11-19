@@ -1,0 +1,55 @@
+<div class="product-card" [class.selected]="isSelected" (click)="selectProduct()">
+    <div class="card-header">
+        <h3>{{product.name}}</h3>
+        <button class="delete-btn" (click)="deleteProduct(); $event.stopPropagation()">
+            🗑️
+        </button>
+    </div>
+
+    <div class="card-body">
+        <div class="info-row">
+            <span class="label">Price:</span>
+            <span class="value">Rp {{product.price | number}}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">Quantity:</span>
+            @if(!isEditing) {
+            <div class="quantity-controls">
+                <button class="qty-btn" (click)="decreaseQuantity(); $event.stopPropagation()">
+                    −
+                </button>
+                <span class="value">{{product.quantity}}</span>
+                <button class="qty-btn" (click)="increaseQuantity(); $event.stopPropagation()">
+                    +
+                </button>
+            </div>
+            } @else {
+            <div class="edit-controls" (click)="$event.stopPropagation()">
+                <input type="number" [(ngModel)]="editQuantity" min="0" class="qty-input">
+                <button class="save-btn" (click)="saveQuantity()">✓</button>
+                <button class="cancel-btn" (click)="cancelEdit()">✗</button>
+            </div>
+            }
+        </div>
+
+        <div class="info-row total">
+            <span class="label">Total Value:</span>
+            <span class="value highlight">Rp {{getTotalValue() | number}}</span>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        @if(!isEditing) {
+        <button class="edit-btn" (click)="startEdit(); $event.stopPropagation()">
+            ✏️ Edit Quantity
+        </button>
+        }
+    </div>
+
+    @if(isSelected) {
+    <div class="selected-badge">
+        ✓ Selected
+    </div>
+    }
+</div>

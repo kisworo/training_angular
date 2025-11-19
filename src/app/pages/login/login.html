@@ -1,0 +1,45 @@
+<div class="login-container">
+    <div class="login-card">
+        <h1>Login</h1>
+        <p class="subtitle">Please login to access your account</p>
+
+        @if (errorMessage) {
+        <div class="error-message">
+            {{errorMessage}}
+        </div>
+        }
+
+        <form (ngSubmit)="login()">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" required [(ngModel)]="user.username"
+                    placeholder="username" required="true">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required [(ngModel)]="user.password"
+                    placeholder="password" required="true">
+            </div>
+
+            <div class="form-group">
+                <label for="">Role</label>
+                <select id="role" [(ngModel)]="selectedRole" name="role">
+                    @for(role of listRole; track role){
+                    <option [value]="role">{{role}}</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary">Login</button>
+        </form>
+
+        <div class="quick-login">
+            <p>Quick Login</p>
+            <div class="quick-buttons">
+                <button class="btn-quick admin" (click)="quickLogin('admin')">Admin</button>
+                <button class="btn-quick editor" (click)="quickLogin('editor')">Editor</button>
+                <button class="btn-quick viewer" (click)="quickLogin('viewer')">Viewer</button>
+            </div>
+        </div>
+    </div>
+</div>

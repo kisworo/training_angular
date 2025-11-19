@@ -1,0 +1,73 @@
+<div class="container">
+    <h1>Angular 18 Control Flow Demo</h1>
+
+    <section class="demo-section">
+        <h2>1. IF - Conditional Rendering</h2>
+
+        <div class="controls">
+            <button (click)="toggleLogin()">
+                {{isLoggedIn ? 'Logout' : 'Login' }}
+            </button>
+
+            <div class="role-buttons">
+                <button (click)="setRole('admin')" [class.active]="userRole === 'admin'">Admin</button>
+                <button (click)="setRole('editor')" [class.active]="userRole === 'editor'">Editor</button>
+                <button (click)="setRole('guest')" [class.active]="userRole === 'guest'">Guest</button>
+            </div>
+
+        </div>
+
+        <div class="output-box">
+            <p>Current Role : <strong>{{userRole}}</strong></p>
+
+            @if(isLoggedIn){
+            <div class="alert success">
+                <p>Welcome back! You are logged in {{userRole}}.</p>
+            </div>
+            } @else {
+            <div class="alert warning">
+                <p>Please login to continue.</p>
+            </div>
+            }
+
+            @if(userRole == 'admin'){
+            <div class="panel admin-panel">
+                <h3>🛡️ Admin Panel</h3>
+                <p>Full access to all settings.</p>
+            </div>
+            } @else if(userRole == 'editor'){
+            <div class="panel editor-panel">
+                <h3>✏️ Editor Panel</h3>
+                <p>Can edit content.</p>
+            </div>
+            } @else {
+            <div class="panel user-panel">
+                <h3>👤 User Panel</h3>
+                <p>View only access.</p>
+            </div>
+            }
+        </div>
+
+    </section>
+
+    <section class="demo-section">
+        <button (click)="addUser()"> Add user</button>
+        <p>Total users : {{users.length}}</p>
+
+        <div class="user-grid">
+            @for(user of users; track user.id){
+            <div class="user-card">
+                <div class="user-info">
+                    <h3>{{user.name}}</h3>
+                    <span class="badge">{{user.role}}</span>
+                </div>
+                <button class="delete-btn" (click)="removeUser(user.id)">🗑️</button>
+            </div>
+            } @empty{
+            <div class="empty-state">
+                <p>📭 No users found. Add some!</p>
+            </div>
+            }
+        </div>
+    </section>
+</div>

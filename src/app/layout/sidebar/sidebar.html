@@ -1,0 +1,10 @@
+<aside class="app-sidebar">
+    <nav class="sidebar-nav">
+        <button [class.active]="activeMenu === 'employee'" (click)="setActiveMenu('employee')">
+            👥 Pegawai
+        </button>
+        <button [class.active]="activeMenu === 'organization'" (click)="setActiveMenu('organization')">
+            🏢 Organisasi
+        </button>
+    </nav>
+</aside>

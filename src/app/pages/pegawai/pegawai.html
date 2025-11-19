@@ -1,0 +1,73 @@
+<!-- Employee Table -->
+<div class="content-header">
+    <h2>Data Pegawai</h2>
+    <button (click)="openEmployeeForm()">
+        ➕ Tambah Pegawai
+    </button>
+</div>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Posisi</th>
+            <th>Organisasi</th>
+            <th>Email</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (emp of employees; track emp.id) {
+        <tr>
+            <td>{{ emp.id }}</td>
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.position }}</td>
+            <td>{{ getOrganizationName(emp.organizationId) }}</td>
+            <td>{{ emp.email }}</td>
+            <td>
+                <button (click)="editEmployee(emp)">✏️</button>
+                <button (click)="deleteEmployee(emp.id)">🗑️</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Modal -->
+@if (showEmployeeForm) {
+<div class="modal-overlay" (click)="closeEmployeeForm()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>{{ isEditingEmployee ? 'Edit Pegawai' : 'Tambah Pegawai' }}</h3>
+            <button class="close-btn" (click)="closeEmployeeForm()">✕</button>
+        </div>
+        <form (ngSubmit)="saveEmployee()" class="modal-form">
+            <div class="form-group">
+                <label>Nama</label>
+                <input type="text" [(ngModel)]="employeeForm.name" name="name" placeholder="Masukkan nama" />
+            </div>
+            <div class="form-group">
+                <label>Posisi</label>
+                <input type="text" [(ngModel)]="employeeForm.position" name="position" placeholder="Masukkan posisi" />
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" [(ngModel)]="employeeForm.email" name="email" placeholder="Masukkan email" />
+            </div>
+            <div class="form-group">
+                <label>Organisasi</label>
+                <select [(ngModel)]="employeeForm.organizationId" name="organizationId">
+                    @for (org of organizations; track org.id) {
+                    <option [value]="org.id">{{ org.name }}</option>
+                    }
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" (click)="closeEmployeeForm()">Batal</button>
+                <button type="submit" class="btn-save">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+}

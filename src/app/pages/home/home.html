@@ -1,0 +1,8 @@
+<app-header></app-header>
+<app-sidebar (changeActiveMenu)="setActiveMenu($event)"></app-sidebar>
+@if (activeMenu === 'employee') {
+<app-pegawai></app-pegawai>
+} @else {
+<app-organisasi></app-organisasi>
+}
+<p>home works</p>

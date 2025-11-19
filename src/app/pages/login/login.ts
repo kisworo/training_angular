@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from "@angular/forms";
+import { Router } from '@angular/router';
 
 interface user {
   username: string;
@@ -15,14 +16,20 @@ interface user {
 })
 
 export class Login {
-  listRole = ['Admin', 'Editor', 'Viewer'];
+
   errorMessage: string = '';
-  selectedRole: string = this.listRole[0];
+  listRole: string[];
+  selectedRole: string;
   user: user = {
     username: '',
     password: '',
     role: ''
   };
+
+  constructor(private router: Router) {
+    this.listRole = ['admin', 'editor', 'viewer'];
+    this.selectedRole = this.listRole[0];
+  }
 
   login() {
 
@@ -31,10 +38,15 @@ export class Login {
       return;
     }
 
+    this.router.navigate(['/home']);
+
   }
 
   quickLogin(role: string) {
-
+    this.user.role = role; // Set the role in the user object
+    this.user.username = 'quickuser'; // Example quick username
+    this.user.password = 'quickpass'; // Example quick password
+    this.login(); // Call the login method
   }
 
 }

@@ -1,0 +1,115 @@
+<!-- pegawai.component.html -->
+<div class="page-container">
+    <div class="page-header">
+        <h2>👥 Data Pegawai</h2>
+        <!-- Tombol tambah hanya muncul untuk admin -->
+        @if (isAdmin) {
+        <button class="btn-primary" (click)="openForm()">
+            ➕ Tambah Pegawai
+        </button>
+        } @else {
+        <span class="view-only-badge">👁️ View Only Mode</span>
+        }
+    </div>
+
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Posisi</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (pegawai of pegawaiList; track pegawai.id) {
+                <tr>
+                    <td>{{ pegawai.nama }}</td>
+                    <td>{{ pegawai.email }}</td>
+                    <td>{{ pegawai.posisi }}</td>
+                    <td>
+                        <span class="badge" [class.badge-success]="pegawai.status === 'Aktif'"
+                            [class.badge-danger]="pegawai.status === 'Nonaktif'">
+                            {{ pegawai.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <!-- Tombol edit & hapus hanya untuk admin -->
+                        @if (isAdmin) {
+                        <button class="btn-edit" (click)="editPegawai(pegawai)">
+                            ✏️ Edit
+                        </button>
+                        <button class="btn-delete" (click)="deletePegawai(pegawai.id)">
+                            🗑️ Hapus
+                        </button>
+                        } @else {
+                        <span class="no-access">-</span>
+                        }
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="5" class="empty-state">
+                        📭 Belum ada data pegawai
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Form Modal -->
+    @if (showForm) {
+    <div class="modal-overlay" (click)="closeForm()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h3>{{ isEditing ? 'Edit' : 'Tambah' }} Pegawai</h3>
+                <button class="btn-close" (click)="closeForm()">×</button>
+            </div>
+
+            <!-- Error Message -->
+            @if (formError) {
+            <div class="error-message">
+                ⚠️ {{ formError }}
+            </div>
+            }
+
+            <form (ngSubmit)="savePegawai()">
+                <div class="form-group">
+                    <label>Nama *</label>
+                    <input type="text" [(ngModel)]="pegawaiForm.nama" name="nama" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" [(ngModel)]="pegawaiForm.email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Posisi *</label>
+                    <input type="text" [(ngModel)]="pegawaiForm.posisi" name="posisi" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select [(ngModel)]="pegawaiForm.status" name="status" required>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Nonaktif">Nonaktif</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">
+                        💾 Simpan
+                    </button>
+                    <button type="button" class="btn-secondary" (click)="closeForm()">
+                        ❌ Batal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    }
+</div>

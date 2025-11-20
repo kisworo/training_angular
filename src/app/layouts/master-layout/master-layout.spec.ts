@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Login } from './login';
+import { MasterLayout } from './master-layout';
 
-describe('Login', () => {
-  let component: Login;
-  let fixture: ComponentFixture<Login>;
+describe('MasterLayout', () => {
+  let component: MasterLayout;
+  let fixture: ComponentFixture<MasterLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Login]
+      imports: [MasterLayout]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Login);
+    fixture = TestBed.createComponent(MasterLayout);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

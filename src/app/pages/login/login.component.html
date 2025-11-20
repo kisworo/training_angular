@@ -1,0 +1,49 @@
+<!-- login.component.html -->
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h1>🏢 Manajemen Pegawai</h1>
+            <p>Silakan login untuk melanjutkan</p>
+        </div>
+
+        @if (errorMessage) {
+        <div class="alert alert-error">
+            ⚠️ {{ errorMessage }}
+        </div>
+        }
+
+        <form (ngSubmit)="login()" class="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" type="text" [(ngModel)]="username" name="username" placeholder="Masukkan username"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" [(ngModel)]="password" name="password"
+                    placeholder="Masukkan password" required>
+            </div>
+
+            <button type="submit" class="btn-login">
+                🚀 Login
+            </button>
+        </form>
+
+        <div class="quick-login">
+            <p class="quick-title">Demo Quick Login:</p>
+            <div class="quick-buttons">
+                <button class="btn-quick admin" (click)="quickLogin('admin')">
+                    👑 Login sebagai Admin
+                </button>
+                <button class="btn-quick user" (click)="quickLogin('user')">
+                    👤 Login sebagai User
+                </button>
+            </div>
+        </div>
+
+        <div class="login-footer">
+            <p>© 2024 Manajemen Pegawai System</p>
+        </div>
+    </div>
+</div>

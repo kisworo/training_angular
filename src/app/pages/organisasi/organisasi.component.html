@@ -1,0 +1,65 @@
+<div class="container mt-4">
+    <h2>Daftar Organisasi</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Tipe</th>
+                    <th>Deskripsi</th>
+                    <th>Jumlah Anggota</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (org of organisasiList; track org.id) {
+                <tr>
+                    <td>{{ org.id }}</td>
+                    <td>{{ org.nama }}</td>
+                    <td>{{ org.tipe }}</td>
+                    <td>{{ org.deskripsi }}</td>
+                    <td>{{ org.jumlahAnggota }}</td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="5" class="text-center">Tidak ada data organisasi</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4">
+        <h3>Daftar Alamat</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>No</th>
+                        <th>Alamat</th>
+                        <th>Telp</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (alamat of organisasiAlamatList; track alamat.no) {
+                    <tr>
+                        <td>{{ alamat.no }}</td>
+                        <td>{{ alamat.alamat }}</td>
+                        <td>{{ alamat.telp }}</td>
+                        <td>{{ alamat.email }}</td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="4" class="text-center">Tidak ada data alamat</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h3>Keterangan</h3>
+        <p class="lead">{{ organisasiKeterangan }}</p>
+    </div>
+</div>
